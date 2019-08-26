@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,9 +31,9 @@ public class SearchController {
     public String search(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
         if (searchType.equals("all")) {
             //Instantiate empty AL of HMs to deliver to search results
-            ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+            List<HashMap<String, String>> jobs = new ArrayList<>();
             //Get all the jobs in an AL to search in
-            ArrayList<HashMap<String, String>> allJobs = JobData.findAll();
+            List<HashMap<String, String>> allJobs = JobData.findAll();
 
             //Loop through all jobs to search
             for (int i = 0; i < allJobs.size(); i++) {
@@ -48,7 +49,7 @@ public class SearchController {
             model.addAttribute("columns", ListController.columnChoices);
             return "search";
         } else {
-            ArrayList<HashMap<String, String>> jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+            List<HashMap<String, String>> jobs = JobData.findByColumnAndValue(searchType, searchTerm);
             model.addAttribute("jobs", jobs);
             model.addAttribute("columns", ListController.columnChoices);
             return "search";
